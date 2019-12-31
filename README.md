@@ -9,17 +9,14 @@
 Ubuntu 18.04.1 LTS
 PHP 7.2
 
-`
 
 apt install php7.2 php7.2-mysql php7.2-fpm
-
 systemctl status php7.2-fpm && systemctl restart php7.2-fpm
 
-`
 
 
 ## Nginx 配置
-`
+
 server {
         listen       80;
         listen       [::]:80;
@@ -44,5 +41,3 @@ server {
             include        fastcgi_params;
         }
     }
-
-`
