@@ -1,4 +1,4 @@
-# Lepus-php7
+# Lepus-admin-php7
 修改 天兔后台系统 支持 PHP7 
 
 升级依赖的 Codeigniter 框架到 3.1.11 版本
