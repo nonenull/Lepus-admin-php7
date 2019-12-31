@@ -399,16 +399,29 @@ if ( ! is_php('5.4'))
  */
 
 	$e404 = FALSE;
-	$class = ucfirst($RTR->class);
-	$method = $RTR->method;
+    $method = $RTR->method;
+	$classFileName = empty($RTR->class) ? "index" : $RTR->class;
+	$class = ucfirst($classFileName);
+    $classFilePath = APPPATH.'controllers/'.$RTR->directory.$classFileName.'.php';
 
-	if (empty($class) OR ! file_exists(APPPATH.'controllers/'.$RTR->directory.$class.'.php'))
+    log_message("DEBUG","directory name === $RTR->directory");
+    log_message("DEBUG","class file name === $classFileName");
+    log_message("DEBUG","class name === $class");
+    log_message("DEBUG","file name === ". $classFilePath);
+
+
+    if (file_exists($classFilePath)){
+        log_message("DEBUG","file exists");
+    }else {
+        log_message("DEBUG","file not exists");
+    }
+	if (empty($class) OR ! file_exists($classFilePath))
 	{
 		$e404 = TRUE;
 	}
 	else
 	{
-		require_once(APPPATH.'controllers/'.$RTR->directory.$class.'.php');
+		require_once(APPPATH.'controllers/'.$RTR->directory.$classFileName.'.php');
 
 		if ( ! class_exists($class, FALSE) OR $method[0] === '_' OR method_exists('CI_Controller', $method))
 		{

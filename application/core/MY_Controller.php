@@ -45,6 +45,7 @@ abstract class Front_Controller extends CI_Controller
 	private function __check_login(){
 		if( ($this->session->userdata('logged_in') != 1) ){
 			$return_url   =  current_url();
+            log_message("DEBUG","return_url ======= $return_url");
 			redirect(site_url('/login').'?return_url='.$return_url);
             return ;
 		}

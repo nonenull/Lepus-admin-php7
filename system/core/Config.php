@@ -88,15 +88,15 @@ class CI_Config {
 		// Set the base_url automatically if none was provided
 		if (empty($this->config['base_url']))
 		{
-			if (isset($_SERVER['SERVER_ADDR']))
+			if (isset($_SERVER['SERVER_NAME']))
 			{
-				if (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
+				if (strpos($_SERVER['SERVER_NAME'], ':') !== FALSE)
 				{
 					$server_addr = '['.$_SERVER['SERVER_ADDR'].']';
 				}
 				else
 				{
-					$server_addr = $_SERVER['SERVER_ADDR'];
+					$server_addr = $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT'];
 				}
 
 				$base_url = (is_https() ? 'https' : 'http').'://'.$server_addr
@@ -214,6 +214,7 @@ class CI_Config {
 	 */
 	public function slash_item($item)
 	{
+        log_message("DEBUG","config  $item === ". $this->config[$item]);
 		if ( ! isset($this->config[$item]))
 		{
 			return NULL;
@@ -242,7 +243,7 @@ class CI_Config {
 	public function site_url($uri = '', $protocol = NULL)
 	{
 		$base_url = $this->slash_item('base_url');
-
+        log_message("DEBUG","base_url  === $base_url");
 		if (isset($protocol))
 		{
 			// For protocol-relative links
